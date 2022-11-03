@@ -13,5 +13,11 @@ namespace ProyectoFinal.Controllers
         {
             return ADO_Venta.MostrarVentas();
         }
+
+        [HttpPost]
+        public void Crear([FromBody] Venta venta)
+        {
+            ADO_Venta.InsertVenta(venta);
+        }
     }
 }

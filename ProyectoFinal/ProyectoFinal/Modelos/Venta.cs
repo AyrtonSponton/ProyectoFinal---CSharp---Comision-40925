@@ -10,7 +10,6 @@
         {
             id = 0;
             Comentarios = String.Empty;
-            IdUsuario = 0;
         }
     }
 }

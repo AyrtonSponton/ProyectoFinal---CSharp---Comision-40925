@@ -17,21 +17,24 @@ namespace ProyectoFinal.Controllers
 
 
         [HttpDelete]
-        public void Eliminar([FromBody] int id)
+        public void Eliminar([FromBody] Usuario usu)
         {
-
+            ADO_Usuario.Delete(usu);
         }
 
         [HttpPut]
         public void Actualizar([FromBody] Usuario usu)
         {
-
+            ADO_Usuario.Update(usu);
+            
         }
 
         [HttpPost]
         public void Crear([FromBody] Usuario usu) 
         {
-            
+       
+          ADO_Usuario.InsertUsuario(usu);
+
         } 
 
     }

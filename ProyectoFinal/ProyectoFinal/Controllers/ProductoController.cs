@@ -15,6 +15,18 @@ namespace ProyectoFinal.Controllers
             return ADO_Producto.MostrarProdcutos();
         }
 
+        [HttpPost]
+        public void Crear([FromBody] Producto producto)
+        {
+            ADO_Producto.InsertProducto(producto);
+        }
+
+        [HttpPut]
+        public void Modificar([FromBody] Producto producto)
+        {
+            ADO_Producto.ModificarProducto(producto);  
+        }
+
         [HttpDelete]
         public void EliminarProducto([FromBody] int id)
         {
