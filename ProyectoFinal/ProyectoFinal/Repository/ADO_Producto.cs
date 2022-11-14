@@ -73,34 +73,45 @@ namespace ProyectoFinal.Repository
             }
         }
 
-        public static void ModificarProducto(Producto producto)
+        public static bool ModificarProducto(Producto producto)
         {
-            SqlConnectionStringBuilder conecctionbuilder = new();
-            conecctionbuilder.DataSource = "DESKTOP-KOQ4I96";
-            conecctionbuilder.InitialCatalog = "SistemaGestion";
-            conecctionbuilder.IntegratedSecurity = true;
-            var CS = conecctionbuilder.ConnectionString;
-
-            using (SqlConnection connection = new SqlConnection(CS))
+            bool modificar = false;
+            if (producto.Descripcion == null ||
+                producto.Descripcion == "" ||
+                producto.IdUsuario == 0)
             {
-                connection.Open();
-                SqlCommand cmd = connection.CreateCommand();
-                cmd.CommandText = @"UPDATE Producto
+                return modificar;
+            }
+            else
+            {
+                SqlConnectionStringBuilder conecctionbuilder = new();
+                conecctionbuilder.DataSource = "DESKTOP-KOQ4I96";
+                conecctionbuilder.InitialCatalog = "SistemaGestion";
+                conecctionbuilder.IntegratedSecurity = true;
+                var CS = conecctionbuilder.ConnectionString;
+
+                using (SqlConnection connection = new SqlConnection(CS))
+                {
+                    connection.Open();
+                    SqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = @"UPDATE Producto
                                     SET 
                                     Descripcion = @Descripcion,
                                     Costo = @Costo,
                                     PrecioVenta = @PrecioVenta,
 								    Stock = @Stock,
 								    IdUsuario = @IdUsuario
-                                    WHERE Descripcion = @Descripcion"; 
-                cmd.Parameters.AddWithValue("@Descripcion", producto.Descripcion);
-                cmd.Parameters.AddWithValue("@Costo", producto.Costo);
-                cmd.Parameters.AddWithValue("@PrecioVenta", producto.PrecioVenta);
-                cmd.Parameters.AddWithValue("@Stock", producto.Stock);
-                cmd.Parameters.AddWithValue("@IdUsuario", producto.IdUsuario);
+                                    WHERE Descripcion = @Descripcion";
+                    cmd.Parameters.AddWithValue("@Descripcion", producto.Descripcion);
+                    cmd.Parameters.AddWithValue("@Costo", producto.Costo);
+                    cmd.Parameters.AddWithValue("@PrecioVenta", producto.PrecioVenta);
+                    cmd.Parameters.AddWithValue("@Stock", producto.Stock);
+                    cmd.Parameters.AddWithValue("@IdUsuario", producto.IdUsuario);
 
-                cmd.ExecuteNonQuery();
-                connection.Close();
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                    return modificar;
+                }
 
             }
         }

@@ -15,6 +15,17 @@ namespace ProyectoFinal.Controllers
             return ADO_Usuario.MostrarUsuarios();
         }
 
+        [HttpGet(Name = "{nombreUsuario}/{contraseña}")]
+        public IEnumerable<Usuario> GetNombreyContraseña([FromBody] Usuario usu)
+        {
+            return ADO_Usuario.MostrarUserPorNombreyContraseña(usu);
+        }
+
+        [HttpGet(Name = "{nombreUsuario}")]
+        public IEnumerable<Usuario> GetNombre([FromBody] Usuario usu)
+        {
+            return ADO_Usuario.MostrarUserPorNombre(usu);
+        }
 
         [HttpDelete]
         public void Eliminar([FromBody] Usuario usu)
@@ -26,16 +37,16 @@ namespace ProyectoFinal.Controllers
         public void Actualizar([FromBody] Usuario usu)
         {
             ADO_Usuario.Update(usu);
-            
+
         }
 
         [HttpPost]
-        public void Crear([FromBody] Usuario usu) 
+        public void Crear([FromBody] Usuario usu)
         {
-       
-          ADO_Usuario.InsertUsuario(usu);
 
-        } 
+            ADO_Usuario.InsertUsuario(usu);
+
+        }
 
     }
 }
